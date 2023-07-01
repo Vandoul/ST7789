@@ -227,7 +227,7 @@ static void _st7789_init(void)
 {
     LCD_WR_REG(LCD_CMD_MEMORY_DATA_ACCESS_CTRL);
     LCD_WR_DATA(0x00);
-    
+
     LCD_WR_REG(LCD_CMD_INTERFACE_PIXEL_FORMAT);
     LCD_WR_DATA(0X05); //03=RGB444,05=RGB565,06=RGB666
 
@@ -452,7 +452,7 @@ rt_err_t lcd_dev_ops_control(rt_device_t dev, int cmd, void *args)
     return RT_EOK;
 }
 #ifdef RT_USING_DEVICE_OPS
-const struct rt_device_ops lcd_dev_ops = 
+const struct rt_device_ops lcd_dev_ops =
 {
     .init    = lcd_dev_ops_init   ,
     .open    = lcd_dev_ops_open   ,

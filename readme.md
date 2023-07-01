@@ -123,7 +123,6 @@ int st7789_test(void)
 MSH_CMD_EXPORT(st7789_test, lcd will fill color.);
 ```
 
-
 ## 注意事项
 
 暂无
@@ -133,4 +132,4 @@ MSH_CMD_EXPORT(st7789_test, lcd will fill color.);
 维护人:
 
 - [vandoul](https://github.com/Vandoul)
-- 主页：[st7789 rtthread graphic device](https://github.com/Vandoul/st7789_driver)
+- 主页：[tft lcd st7789 rtthread graphic device](https://github.com/Vandoul/ST7789)
