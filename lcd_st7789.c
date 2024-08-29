@@ -485,7 +485,41 @@ static uint16_t color_array[] =
     WHITE, BLACK, RED, GREEN, BLUE, BRED,
     GRED, GBLUE, YELLOW
 };
-
+static rt_uint32_t _str2hex(const char *str)
+{
+    const char *tmp;
+    rt_uint32_t val;
+    int scale;
+    if(str[0] == '0' && (str[1] == 'x' || str[1] =='X'))
+    {
+        tmp   = str + 2;
+        scale = 16;
+    }
+    else
+    {
+        tmp   = str;
+        scale = 10;
+    }
+    val = 0;
+    while(*tmp)
+    {
+        rt_uint8_t num = ((*tmp) | 0x20) - 0x30;
+        if(num < 10)
+        {
+            val = val * scale + num;
+        }
+        else if((num > 0x30) && (num < 0x37))
+        {
+            val = val * scale + num - 0x27;
+        }
+        else
+        {
+            break;
+        }
+        tmp++;
+    }
+    return val;
+}
 static int lcd_spi_test(int argc, char *argv[])
 {
     rt_device_t lcd = rt_device_find("lcd");
@@ -504,14 +538,13 @@ static int lcd_spi_test(int argc, char *argv[])
         }
         else if(rt_strcmp(argv[1], "line") == 0)
         {
-            extern rt_uint32_t str2hex(const char *str);
             if(argc > 5)
             {
-                int x = str2hex(argv[2]);
-                int y = str2hex(argv[3]);
-                int size = str2hex(argv[4]);
+                int x = _str2hex(argv[2]);
+                int y = _str2hex(argv[3]);
+                int size = _str2hex(argv[4]);
                 volatile uint8_t buf[size*2];
-                uint16_t color = str2hex(argv[5]);
+                uint16_t color = _str2hex(argv[5]);
                 for(int i=0; i<size; i++)
                 {
                     buf[i*2] = color>>8;
